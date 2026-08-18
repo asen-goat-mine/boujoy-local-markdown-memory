@@ -1,0 +1,38 @@
+name: cross-platform checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+        python: ["3.9", "3.11"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: python tools/sync_index_status.py --check
+      - run: python tools/vault_doctor.py
+      - run: python -m unittest discover -s tests
+      - run: node --check Knowledge-UI/app.js
+      - if: runner.os == 'macOS'
+        run: zsh -n open-preview.command Knowledge-UI/open-preview.command Knowledge-UI/install-macos-app.command
+      - if: runner.os == 'macOS'
+        run: test -x open-preview.command && test -x Knowledge-UI/open-preview.command && test -x Knowledge-UI/install-macos-app.command
+      - if: runner.os == 'macOS'
+        run: |
+          osacompile -o "$RUNNER_TEMP/Local Markdown Memory.app" Knowledge-UI/macos-launcher.applescript
+          codesign --force --deep --sign - "$RUNNER_TEMP/Local Markdown Memory.app"
+          codesign --verify --deep --strict --verbose=2 "$RUNNER_TEMP/Local Markdown Memory.app"

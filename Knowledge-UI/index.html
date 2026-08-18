@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Local Markdown Memory read-only workspace" />
+    <title>Local Markdown Memory</title>
+    <link rel="stylesheet" href="./styles.css?v=20260807-4" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="知识库导航">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div><strong>Local Memory</strong><small>Markdown Vault</small></div>
+        </div>
+
+        <nav class="nav-list" id="navList">
+          <button class="nav-item is-active" data-view="overview" data-scope="library" aria-current="page">
+            <span class="nav-icon">▦</span><span>总览</span>
+          </button>
+          <button class="nav-item" data-view="atlas" data-scope="library">
+            <span class="nav-icon">✣</span><span>知识全景</span>
+          </button>
+          <button class="nav-item" data-view="pipeline" data-scope="library">
+            <span class="nav-icon">→</span><span>交付管线</span>
+          </button>
+          <button class="nav-item" data-view="library" data-scope="projects">
+            <span class="nav-icon">□</span><span>项目</span>
+          </button>
+          <button class="nav-item" data-view="library" data-scope="knowledge">
+            <span class="nav-icon">◇</span><span>知识库</span>
+          </button>
+          <button class="nav-item" data-view="library" data-scope="content">
+            <span class="nav-icon">≡</span><span>内容</span>
+          </button>
+          <button class="nav-item" data-view="library" data-scope="prompts">
+            <span class="nav-icon">&gt;_</span><span>提示词</span>
+          </button>
+          <button class="nav-item" data-view="library" data-scope="business">
+            <span class="nav-icon">B</span><span>商业</span>
+          </button>
+          <button class="nav-item" data-view="health" data-scope="library">
+            <span class="nav-icon">✓</span><span>健康中心</span>
+          </button>
+          <button class="nav-item" data-view="library" data-scope="all">
+            <span class="nav-icon">▱</span><span>全部文件</span>
+          </button>
+        </nav>
+
+        <section class="vault-status" aria-live="polite">
+          <div class="status-title"><span>本地知识库</span><span class="status-dot" id="statusDot"></span></div>
+          <div class="status-meter"><span id="statusMeter"></span></div>
+          <strong id="fileCount">正在连接</strong>
+          <p id="vaultPath">读取本地 Markdown</p>
+          <button class="ghost-button" id="connectVault">选择知识库文件夹</button>
+          <input id="folderFallback" type="file" webkitdirectory multiple accept=".md,text/markdown" hidden />
+        </section>
+
+        <div class="sidebar-footer"><span>纯 Markdown</span><span>只读预览</span></div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="main-header">
+          <div>
+            <p class="eyebrow" id="mainEyebrow">LOCAL-FIRST KNOWLEDGE</p>
+            <h1 id="mainTitle">你的第二大脑</h1>
+            <p class="main-subtitle" id="mainSubtitle">项目、知识与方法，在一个本地空间持续生长。</p>
+          </div>
+          <div class="sync-chip" id="syncChip"><span class="sync-indicator"></span><span id="syncLabel">正在连接</span></div>
+        </header>
+
+        <section class="search-section" id="searchSection" aria-label="搜索和筛选">
+          <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input id="searchInput" type="search" autocomplete="off" placeholder="搜索项目、知识卡、标签或正文…" />
+            <kbd id="searchShortcut">⌘ K</kbd>
+          </label>
+          <div class="filter-row" id="filterRow" aria-label="内容范围">
+            <button class="filter-pill is-active" data-scope="library" aria-pressed="true">精选</button>
+            <button class="filter-pill" data-scope="projects" aria-pressed="false">项目</button>
+            <button class="filter-pill" data-scope="knowledge" aria-pressed="false">知识卡</button>
+            <button class="filter-pill" data-scope="content" aria-pressed="false">内容</button>
+            <button class="filter-pill" data-scope="prompts" aria-pressed="false">提示词</button>
+            <button class="filter-pill" data-scope="business" aria-pressed="false">商业</button>
+            <button class="filter-pill" data-scope="all" aria-pressed="false">全部文件</button>
+          </div>
+          <div class="active-query" id="activeQuery" hidden>
+            <span id="activeQueryText"></span><button id="clearFilters" type="button">清除条件</button>
+          </div>
+        </section>
+
+        <div class="dashboard-view" id="overviewView">
+          <section class="focus-section">
+            <div class="section-heading">
+              <div><span class="section-kicker">IN PROGRESS</span><h2>正在推进</h2></div>
+              <button class="text-button" id="manualRefresh">立即同步 ↻</button>
+            </div>
+            <article class="focus-card" id="focusCard">
+              <div class="focus-placeholder"><span class="focus-symbol">M↓</span><div><h3>正在读取知识库</h3><p>连接后展示当前项目与下一步。</p></div></div>
+            </article>
+          </section>
+          <div id="pipelinePreview" hidden></div>
+          <section class="cards-section">
+            <div class="section-heading">
+              <div><span class="section-kicker">RECENTLY CAPTURED</span><h2>最近沉淀</h2></div>
+              <span class="result-count" id="overviewResultCount">读取中</span>
+            </div>
+            <div class="card-grid" id="overviewCardGrid"></div>
+          </section>
+        </div>
+
+        <section class="dashboard-view" id="libraryView" hidden>
+          <section class="cards-section library-cards-section">
+            <div class="section-heading">
+              <div><span class="section-kicker">KNOWLEDGE LIBRARY</span><h2 id="cardsTitle">知识库</h2></div>
+              <span class="result-count" id="resultCount">读取中</span>
+            </div>
+            <div class="card-grid" id="cardGrid"></div>
+            <div class="load-more-row" id="loadMoreRow" hidden><button class="load-more-button" id="loadMore" type="button">加载更多</button></div>
+            <div class="empty-state" id="emptyState" hidden><strong>没有找到匹配内容</strong><p>换一个关键词或清除筛选条件。</p><button class="ghost-button inline-ghost" data-clear-filters>清除条件</button></div>
+          </section>
+        </section>
+
+        <section class="tool-view" id="pipelineView" hidden aria-label="交付管线">
+          <div class="atlas-toolbar">
+            <div><span class="section-kicker">DELIVERY PIPELINE</span><h2>从资料走到交付</h2><p>读取 Dashboard 中的真实进度，快速找到缺失环节。</p></div>
+            <div class="summary-chip" id="pipelineSummary">读取中</div>
+          </div>
+          <div class="pipeline-board" id="pipelineBoard"></div>
+        </section>
+
+        <section class="atlas-view" id="atlasView" hidden aria-label="知识库全景">
+          <div class="atlas-toolbar">
+            <div><span class="section-kicker">KNOWLEDGE ATLAS</span><h2>知识关系空间</h2><p>优先显示 Markdown 内链和元数据关系，标签只补充孤立节点。</p></div>
+            <div class="atlas-stats" id="atlasStats"><span><strong>0</strong> 节点</span><span><strong>0</strong> 关联</span></div>
+          </div>
+          <div class="atlas-layout">
+            <div class="atlas-stage" id="atlasStage">
+              <canvas id="knowledgeGraph" aria-label="动态知识关系图"></canvas>
+              <div class="atlas-orbit atlas-orbit-one" aria-hidden="true"></div><div class="atlas-orbit atlas-orbit-two" aria-hidden="true"></div>
+              <div class="atlas-legend" id="atlasLegend"></div><div class="atlas-tooltip" id="atlasTooltip" hidden></div>
+              <div class="atlas-empty" id="atlasEmpty"><strong>连接知识库后生成全景</strong><p>项目、知识、内容和提示词会成为可探索节点。</p></div>
+            </div>
+            <aside class="atlas-accessible"><h3>节点列表</h3><ul id="atlasNodeList"></ul></aside>
+          </div>
+          <div class="atlas-note"><span class="atlas-note-mark">✦</span><p><strong>这是结构，不是装饰。</strong> 点击节点可直接阅读原文。</p></div>
+        </section>
+
+        <section class="tool-view" id="healthView" hidden aria-label="知识库健康中心">
+          <div class="atlas-toolbar">
+            <div><span class="section-kicker">VAULT HEALTH</span><h2>知识库健康中心</h2><p>只读汇总索引、候选、规则和待整理事项，不修改文件。</p></div>
+            <button class="text-button" id="healthRefresh">刷新数据 ↻</button>
+          </div>
+          <div class="health-score" id="healthScore"></div>
+          <div class="health-grid" id="healthGrid"></div>
+          <section class="health-details"><div class="section-heading"><div><span class="section-kicker">NEXT ACTIONS</span><h2>下一步建议</h2></div></div><div id="healthActions"></div></section>
+        </section>
+      </main>
+
+      <aside class="context-panel" id="contextPanel" aria-label="当前上下文">
+        <header class="context-header">
+          <div><span class="section-kicker">WORKING CONTEXT</span><h2 id="contextTitle">当前工作</h2></div>
+          <button class="icon-button" id="closeSelection" aria-label="返回全局上下文" hidden>×</button>
+        </header>
+        <section class="context-block"><h3>下一步行动</h3><div class="action-list" id="actionList"></div></section>
+        <section class="context-block"><div class="block-title-row"><h3>最近更新</h3><span id="lastSync">尚未同步</span></div><div class="timeline" id="timeline"></div></section>
+        <section class="context-block"><h3>关联标签</h3><div class="tag-cloud" id="tagCloud"></div></section>
+        <section class="source-card"><span>ONE VAULT · ONE SOURCE</span><strong>一份 Markdown，一份事实</strong><p>页面只读。Codex 或 WorkBuddy 保存后，这里会自动呈现最新状态。</p></section>
+      </aside>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <dialog class="reader-dialog" id="readerDialog">
+      <div class="reader-toolbar">
+        <div class="reader-heading"><span class="section-kicker" id="readerType">KNOWLEDGE CARD</span><h2 id="readerTitle">知识卡</h2><p id="readerPath"></p></div>
+        <div class="reader-actions">
+          <button class="reader-action" id="copyCodex" type="button">复制续接指令</button>
+          <button class="reader-action" id="copyPath" type="button">复制路径</button>
+          <button class="reader-action" id="revealFile" type="button">在文件夹中显示</button>
+          <button class="icon-button" id="closeReader" aria-label="关闭预览">×</button>
+        </div>
+      </div>
+      <article class="markdown-reader" id="markdownReader"></article>
+    </dialog>
+
+    <script src="./app.js?v=20260807-4" defer></script>
+  </body>
+</html>
