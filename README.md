@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://github.com/asen-goat-mine/boujoy-local-markdown-memory/releases/download/demo-2026-08-19/Boujoy-Local-Markdown-Memory-Demo.mp4">
-    <img src="https://github.com/asen-goat-mine/boujoy-local-markdown-memory/releases/download/demo-2026-08-19/Boujoy-Local-Markdown-Memory-UI-Preview.gif" alt="Boujoy Local Markdown Memory UI 动态演示。点击观看完整视频。" width="900">
+    <img src="docs/assets/knowledge-memory-demo.gif" alt="Boujoy Local Markdown Memory UI 动态演示。点击观看完整视频。" width="900">
   </a>
 </p>
 
@@ -51,7 +51,7 @@ Boujoy Local Markdown Memory 的目标不是“让 AI 记住一切”，而是�
 | 本地优先且可审计 | 所有规则、索引、卡片和历史都可以直接打开查看；不需要数据库、云端知识服务或外部 API。 |
 | UI 只读 | 预览层帮助浏览、搜索、阅读和检查健康状态，但不会偷偷改写你的 Markdown。 |
 
-> 公开仓库只带规则、索引入口和可删除的合成示例卡；不包含作者的项目、知识、提示词、偏好、日志、素材、Skill 或凭据。
+> 公开仓库只带规则、索引入口、可删除的合成示例卡和已审核的产品 UI 演示动图；不包含作者的项目、知识、提示词、偏好、日志、私人素材、Skill 或凭据。
 
 ## 三分钟开始
 

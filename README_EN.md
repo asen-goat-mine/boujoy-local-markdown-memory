@@ -14,7 +14,7 @@ A local-first knowledge vault for Codex and WorkBuddy. Projects, decisions, meth
 
 <p align="center">
   <a href="https://github.com/asen-goat-mine/boujoy-local-markdown-memory/releases/download/demo-2026-08-19/Boujoy-Local-Markdown-Memory-Demo.mp4">
-    <img src="https://github.com/asen-goat-mine/boujoy-local-markdown-memory/releases/download/demo-2026-08-19/Boujoy-Local-Markdown-Memory-UI-Preview.gif" alt="Animated Local Markdown Memory UI demo. Click for the full video." width="900">
+    <img src="docs/assets/knowledge-memory-demo.gif" alt="Animated Local Markdown Memory UI demo. Click for the full video." width="900">
   </a>
 </p>
 
@@ -51,7 +51,7 @@ Long-term context is therefore not locked inside one chat window, account, or mo
 | Local-first and auditable | Rules, indexes, and cards are all directly readable. No database, cloud knowledge service, or external API is required. |
 | The UI is read-only | The preview helps you browse, search, read, and inspect health; it does not silently modify Markdown. |
 
-> The public repository contains rules, index entry points, and removable synthetic examples only. It contains no author projects, knowledge, prompts, preferences, logs, media, Skills, or credentials.
+> The public repository contains rules, index entry points, removable synthetic examples, and one reviewed product-UI demo animation. It contains no author projects, knowledge, prompts, preferences, logs, private media, Skills, or credentials.
 
 ## Three-minute start
 

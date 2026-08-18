@@ -17,6 +17,9 @@ FORBIDDEN_SUFFIXES = {
     ".png", ".jpg", ".jpeg", ".gif", ".webp", ".pdf", ".pptx", ".docx",
     ".zip", ".7z", ".rar",
 }
+ALLOWED_DEMO_MEDIA = {
+    "docs/assets/knowledge-memory-demo.gif",
+}
 
 
 class ReleaseSafetyTests(unittest.TestCase):
@@ -35,7 +38,16 @@ class ReleaseSafetyTests(unittest.TestCase):
         forbidden: list[str] = []
         for path in ROOT.rglob("*"):
             relative = path.relative_to(ROOT).as_posix()
-            if path.is_symlink() or path.name == "SKILL.md" or path.suffix.lower() in FORBIDDEN_SUFFIXES or ".app/" in relative:
+            media_is_allowed = relative in ALLOWED_DEMO_MEDIA
+            if (
+                path.is_symlink()
+                or path.name == "SKILL.md"
+                or (
+                    path.suffix.lower() in FORBIDDEN_SUFFIXES
+                    and not media_is_allowed
+                )
+                or ".app/" in relative
+            ):
                 forbidden.append(relative)
         self.assertEqual(forbidden, [])
 
