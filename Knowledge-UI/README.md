@@ -8,6 +8,7 @@ Full mode requires Python 3.9+ and uses only the standard library.
 
 - macOS: run `open-preview.command`
 - Windows: run `open-preview.cmd`
+- Linux: from the Vault root, run `./open-preview.sh`
 
 The server binds to `127.0.0.1`, prefers port `8765`, and falls back to a random local port if another service owns that port. Repeated launches reuse the same service only when its anonymous Vault identifier matches.
 
@@ -30,4 +31,3 @@ Run `install-macos-app.command` to compile an AppleScript App on the local Mac a
 - CSP, no telemetry, no external assets, and no external API.
 
 The UI folder must remain directly inside the Vault root so `web_preview.pyw` can verify `AGENTS.md` and `00-System` before serving files.
-

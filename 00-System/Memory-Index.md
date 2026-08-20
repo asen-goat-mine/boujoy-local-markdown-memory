@@ -2,7 +2,7 @@
 
 > Global topic map containing only paths, retrieval triggers, short conclusions, and update dates.
 
-**Updated: 2026-08-07 | Topics: 4**
+**Updated: 2026-08-20 | Topics: 4**
 
 ## Projects
 
@@ -35,4 +35,3 @@
 - Path: `05-Prompts/example-prompt.md`
 - Triggers: prompt, checkpoint, continue later, synthetic example
 - Conclusion: reusable prompts state the trigger, input, output, and boundaries.
-

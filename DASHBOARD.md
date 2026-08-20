@@ -2,7 +2,7 @@
 
 > Start here. Synthetic examples are included only to demonstrate the UI and may be deleted.
 
-**Updated: 2026-08-07 | Mode: Quiet Mode | Source: local Markdown**
+**Updated: 2026-08-20 | Mode: Quiet Mode | Source: local Markdown**
 
 ## Current focus
 
@@ -35,13 +35,14 @@
 - [Asset index](00-System/Asset-Index.md)
 - [Inbox](01-Inbox/_Capture.md)
 - [Preview guide](Knowledge-UI/README.md)
+- [Project documentation](docs/README.md)
 
 ## System status
 
 | Item | Current value |
 |---|---:|
 | Memory-Index topics | 4 |
-| Checked index paths | 16 |
+| Checked index paths | 18 |
 | Missing index paths | 0 |
 | Memory queue | 0 |
 
@@ -52,4 +53,3 @@
 - Markdown is the only data source.
 - The preview is read-only and has no telemetry.
 - This public distribution contains no Skill, runtime, log, or personal data.
-

@@ -13,6 +13,11 @@ A local-first knowledge vault for Codex and WorkBuddy. Projects, decisions, meth
 </div>
 
 <p align="center">
+  <a href="https://github.com/asen-goat-mine/boujoy-local-markdown-memory/actions/workflows/ci.yml"><img src="https://github.com/asen-goat-mine/boujoy-local-markdown-memory/actions/workflows/ci.yml/badge.svg" alt="Cross-platform checks"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-0f766e.svg" alt="MIT License"></a>
+  <img src="https://img.shields.io/badge/Python-3.9%2B-3776AB.svg" alt="Python 3.9+"></p>
+
+<p align="center">
   <a href="https://github.com/asen-goat-mine/boujoy-local-markdown-memory/releases/download/demo-2026-08-19/Boujoy-Local-Markdown-Memory-Demo.mp4">
     <img src="docs/assets/knowledge-memory-demo.gif" alt="Animated Local Markdown Memory UI demo. Click for the full video." width="900">
   </a>
@@ -64,6 +69,8 @@ cd boujoy-local-markdown-memory
 
 Downloading and extracting the ZIP also works.
 
+For long-term personal use, enable GitHub's Template Repository setting and create an independent repository with **Use this template** instead of committing private knowledge to a public fork. Personal and company Vaults should be private.
+
 ### 2. Open the vault as a workspace
 
 - **Codex:** open the repository root. AGENTS.md defines startup reading, retrieval, saving, deduplication, and security boundaries.
@@ -81,9 +88,24 @@ Full mode requires only Python 3.9+ from the standard library. No pip, npm, data
 
 On Windows, double-click open-preview.cmd. The preview serves only on 127.0.0.1 and prefers local port 8765.
 
+On Linux, run:
+
+~~~bash
+./open-preview.sh
+~~~
+
 Without Python, open Knowledge-UI/index.html and select a Vault folder to use browser compatibility mode. It can still browse Markdown, but automatic refresh, local-media range serving, and file reveal are reduced.
 
 On macOS, Knowledge-UI/install-macos-app.command can build a local Desktop app entry. No prebuilt app is committed to this repository.
+
+### Support matrix
+
+| Platform | Full preview | Launcher | CI coverage |
+| --- | --- | --- | --- |
+| macOS | Python 3.9+ | `open-preview.command` | Python 3.9 / 3.13 |
+| Windows | Python 3.9+ | `open-preview.cmd` | Python 3.9 / 3.13 |
+| Linux | Python 3.9+ | `open-preview.sh` | Python 3.9 / 3.13 |
+| Compatible browser | Reduced mode, no Python | `Knowledge-UI/index.html` | Static contract checks |
 
 ## Use it with Codex and WorkBuddy
 
@@ -118,6 +140,13 @@ A healthy agent loop is:
 | 90-Archive | Superseded, low-frequency, or retired material. |
 | Knowledge-UI | Cross-platform, local, read-only preview. |
 | tools | Dependency-free index and health checks. |
+
+More detail lives in the [documentation hub](docs/README.md):
+
+- [Getting started](docs/getting-started.md)
+- [Architecture and boundaries](docs/architecture.md)
+- [Troubleshooting](docs/troubleshooting.md)
+- [Release process](docs/releasing.md)
 
 ## What makes a useful card
 
@@ -170,7 +199,9 @@ python3 tools/sync_index_status.py --check
 python3 -m unittest discover -s tests
 ~~~
 
-These commands check indexes, paths, security boundaries, and preview contracts. GitHub Actions also run static and unit checks on macOS and Windows.
+These commands check indexes, paths, security boundaries, and preview contracts. GitHub Actions also run static and unit checks on Linux, macOS, and Windows.
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before contributing. See [SUPPORT.md](SUPPORT.md) for help and [CHANGELOG.md](CHANGELOG.md) for version history.
 
 ## FAQ
 

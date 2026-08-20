@@ -4,34 +4,71 @@ on:
   push:
   pull_request:
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+  PYTHONUTF8: "1"
+
 jobs:
   test:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, windows-latest]
-        python: ["3.9", "3.11"]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.9", "3.13"]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python }}
-      - uses: actions/setup-node@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
         with:
-          node-version: "22"
-      - run: python tools/sync_index_status.py --check
-      - run: python tools/vault_doctor.py
-      - run: python -m unittest discover -s tests
-      - run: node --check Knowledge-UI/app.js
-      - if: runner.os == 'macOS'
+          node-version: "24"
+
+      - name: Check index consistency
+        run: python tools/sync_index_status.py --check
+
+      - name: Run Vault Doctor
+        run: python tools/vault_doctor.py
+
+      - name: Run test suite
+        run: python -m unittest discover -s tests -v
+
+      - name: Check JavaScript syntax
+        run: node --check Knowledge-UI/app.js
+
+      - name: Check POSIX launcher syntax
+        if: runner.os != 'Windows'
+        run: sh -n open-preview.sh
+
+      - name: Check macOS launcher syntax
+        if: runner.os == 'macOS'
         run: zsh -n open-preview.command Knowledge-UI/open-preview.command Knowledge-UI/install-macos-app.command
-      - if: runner.os == 'macOS'
+
+      - name: Check executable launcher permissions
+        if: runner.os != 'Windows'
+        run: test -x open-preview.sh
+
+      - name: Check macOS executable permissions
+        if: runner.os == 'macOS'
         run: test -x open-preview.command && test -x Knowledge-UI/open-preview.command && test -x Knowledge-UI/install-macos-app.command
-      - if: runner.os == 'macOS'
+
+      - name: Compile and verify macOS desktop entry
+        if: runner.os == 'macOS'
         run: |
           osacompile -o "$RUNNER_TEMP/Local Markdown Memory.app" Knowledge-UI/macos-launcher.applescript
           codesign --force --deep --sign - "$RUNNER_TEMP/Local Markdown Memory.app"

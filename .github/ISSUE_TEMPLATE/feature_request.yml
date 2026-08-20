@@ -1,0 +1,44 @@
+name: Feature request
+description: Propose an improvement that preserves the local Markdown and read-only boundaries.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Explain the user problem before describing a solution. Proposals that change a core boundary should include the tradeoff explicitly.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: What becomes difficult, unsafe, or repetitive today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed outcome
+      description: Describe the smallest useful behavior, not an implementation mandate.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Include workarounds or simpler options that were considered.
+
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Boundary check
+      options:
+        - label: Markdown remains the long-term source of truth.
+          required: true
+        - label: The preview remains read-only.
+          required: true
+        - label: The proposal does not require private data in a public issue.
+          required: true
