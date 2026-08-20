@@ -2,7 +2,7 @@
 
 > This file contains only the current continuation point.
 
-**Updated: 2026-08-07**
+**Updated: 2026-08-20**
 
 ## Current project
 
@@ -12,6 +12,7 @@ Starter Vault setup.
 
 - Cross-platform read-only preview is available.
 - Four synthetic examples demonstrate project, knowledge, content, and prompt cards.
+- One reviewed first-party demo animation documents the preview interface.
 
 ## Current decisions
 
@@ -31,5 +32,4 @@ None.
 
 ## Verification
 
-The public starter contains no personal content, logs, media, runtime, or Skill files.
-
+The public starter contains no personal content, logs, private media, runtime, or Skill files. The reviewed demo animation is documentation only.

@@ -1,12 +1,18 @@
 # Security Policy
 
-## Supported version
+## Supported versions
 
-Only the latest revision on the default branch receives security fixes.
+| Version | Supported |
+|---|---|
+| Latest release | Yes |
+| Default branch | Yes |
+| Older revisions | No |
 
-## Reporting
+## Report a vulnerability
 
-Please use GitHub's private vulnerability reporting feature. Do not include real Vault content, credentials, personal paths, or private documents in a public issue.
+Use GitHub's private vulnerability reporting feature. Do not open a public issue and do not include real Vault content, credentials, personal paths, or private documents.
+
+Include the affected version, platform, reproduction steps using synthetic data, expected impact, and any proposed mitigation. The maintainer will acknowledge a complete report when it is reviewed; no fixed response or remediation deadline is promised.
 
 ## Local preview boundary
 
@@ -17,3 +23,6 @@ Please use GitHub's private vulnerability reporting feature. Do not include real
 
 These controls do not replace operating-system permissions or safe Git practices.
 
+## Scope
+
+Security reports are especially useful for path traversal, symlink escape, unintended writes, cross-origin access, local-service exposure, unsafe file reveal, or leakage of private Vault data. General support requests belong in [SUPPORT.md](SUPPORT.md).

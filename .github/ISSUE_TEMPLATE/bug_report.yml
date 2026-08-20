@@ -1,0 +1,78 @@
+name: Bug report
+description: Report a reproducible problem using synthetic or redacted data.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a problem. Never upload a private Vault, credentials, personal paths, customer data, or confidential screenshots.
+
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: Use the release version, tag, or commit hash when available.
+      placeholder: v0.1.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - macOS
+        - Windows
+        - Linux
+        - Browser compatibility mode
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      description: Run `python3 --version`, or write "not used" for browser compatibility mode.
+      placeholder: Python 3.13.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Provide the shortest deterministic example using synthetic content.
+      placeholder: |
+        1. Run ...
+        2. Open ...
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include only the minimal redacted error output.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Privacy check
+      options:
+        - label: I confirmed this report contains no private Vault content, credentials, personal paths, or confidential data.
+          required: true
+        - label: I searched existing issues and read the troubleshooting guide.
+          required: true

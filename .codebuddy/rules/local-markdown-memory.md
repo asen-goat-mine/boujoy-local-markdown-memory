@@ -9,10 +9,10 @@ The workspace root is a local Markdown knowledge Vault. `AGENTS.md` is the autho
 - Compress durable knowledge; do not store raw conversations by default.
 - Never save credentials, identity data, customer privacy, or files outside the Vault.
 - The UI is read-only and refreshes after WorkBuddy or Codex saves Markdown.
-- This public distribution includes no Skill, plugin, log, media, or runtime.
+- This public distribution includes no Skill, plugin, log, private media, or runtime. The reviewed product demo under `docs/assets` is documentation only.
 
 Preview entry points:
 
 - macOS: `open-preview.command`
 - Windows: `open-preview.cmd`
-
+- Linux: `open-preview.sh`

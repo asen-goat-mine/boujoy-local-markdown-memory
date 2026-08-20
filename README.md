@@ -13,6 +13,11 @@
 </div>
 
 <p align="center">
+  <a href="https://github.com/asen-goat-mine/boujoy-local-markdown-memory/actions/workflows/ci.yml"><img src="https://github.com/asen-goat-mine/boujoy-local-markdown-memory/actions/workflows/ci.yml/badge.svg" alt="跨平台检查"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-0f766e.svg" alt="MIT License"></a>
+  <img src="https://img.shields.io/badge/Python-3.9%2B-3776AB.svg" alt="Python 3.9+"></p>
+
+<p align="center">
   <a href="https://github.com/asen-goat-mine/boujoy-local-markdown-memory/releases/download/demo-2026-08-19/Boujoy-Local-Markdown-Memory-Demo.mp4">
     <img src="docs/assets/knowledge-memory-demo.gif" alt="Boujoy Local Markdown Memory UI 动态演示。点击观看完整视频。" width="900">
   </a>
@@ -64,6 +69,8 @@ cd boujoy-local-markdown-memory
 
 也可以直接下载 ZIP 并解压。
 
+如果要长期保存自己的知识，推荐在 GitHub 开启 Template Repository 后使用 **Use this template** 创建独立仓库，而不是直接 Fork 后把私人内容提交到公开历史。个人或公司 Vault 应设为私有。
+
 ### 2. 把它作为工作根目录打开
 
 - **Codex**：打开仓库根目录。根目录的 AGENTS.md 会定义启动读取、检索、保存、去重和安全边界。
@@ -81,9 +88,24 @@ cd boujoy-local-markdown-memory
 
 Windows 下双击 open-preview.cmd。预览服务默认只监听 127.0.0.1，并优先使用本地端口 8765。
 
+Linux 下运行：
+
+~~~bash
+./open-preview.sh
+~~~
+
 如果电脑没有 Python，仍可以打开 Knowledge-UI/index.html，选择 Vault 文件夹进入浏览器兼容模式；自动刷新、本地媒体 Range 和在文件夹中显示等能力会降级。
 
 macOS 用户还可以运行 Knowledge-UI/install-macos-app.command，在本机生成桌面 App 入口。仓库不提交预编译 App。
+
+### 支持范围
+
+| 平台 | 完整预览 | 一键入口 | CI 验证 |
+| --- | --- | --- | --- |
+| macOS | Python 3.9+ | `open-preview.command` | Python 3.9 / 3.13 |
+| Windows | Python 3.9+ | `open-preview.cmd` | Python 3.9 / 3.13 |
+| Linux | Python 3.9+ | `open-preview.sh` | Python 3.9 / 3.13 |
+| 兼容浏览器 | 降级模式，无需 Python | `Knowledge-UI/index.html` | 静态契约检查 |
 
 ## 和 Codex / WorkBuddy 一起用
 
@@ -118,6 +140,13 @@ macOS 用户还可以运行 Knowledge-UI/install-macos-app.command，在本机�
 | 90-Archive | 过期、低频或已废弃内容。 |
 | Knowledge-UI | 跨平台、本地、只读的预览界面。 |
 | tools | 无依赖的索引检查和健康检查工具。 |
+
+更深入的说明集中在 [文档中心](docs/README.md)：
+
+- [快速开始](docs/getting-started.md)
+- [架构与边界](docs/architecture.md)
+- [故障排查](docs/troubleshooting.md)
+- [版本发布流程](docs/releasing.md)
 
 ## 怎样写一张真正有用的卡
 
@@ -170,7 +199,9 @@ python3 tools/sync_index_status.py --check
 python3 -m unittest discover -s tests
 ~~~
 
-这些检查会验证索引、路径、安全边界和预览服务契约。公开仓库的 GitHub Actions 也会在 macOS 与 Windows 上执行静态和单元测试。
+这些检查会验证索引、路径、安全边界和预览服务契约。公开仓库的 GitHub Actions 也会在 Linux、macOS 与 Windows 上执行静态和单元测试。
+
+参与贡献前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。使用问题见 [SUPPORT.md](SUPPORT.md)，版本变化见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 常见问题
 

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/asen-goat-mine/boujoy-local-markdown-memory/security/advisories/new
+    about: Report vulnerabilities privately instead of opening a public issue.
+  - name: Support guide
+    url: https://github.com/asen-goat-mine/boujoy-local-markdown-memory/blob/main/SUPPORT.md
+    about: Check setup, diagnostics, and privacy-safe support guidance first.

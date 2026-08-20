@@ -751,7 +751,7 @@ function renderHealth() {
     { title: "索引完整性", value: data.missing === 0 ? "正常" : `${data.missing} 条失效`, detail: `${data.topics} 个主题 · ${data.paths} 条路径`, state: data.missing === 0 ? "good" : "warn", path: data.index?.path },
     { title: "记忆候选", value: `${data.queueCount} 条`, detail: data.queueCount ? "等待价值判断" : "当前队列为空", state: data.queueCount ? "warn" : "good", path: data.queue?.path },
     { title: "核心规则", value: data.rulesReady ? "已加载" : "缺失", detail: "AGENTS · Boot · Hot Index · Memory Index", state: data.rulesReady ? "good" : "warn", path: data.active?.path },
-    { title: "预览入口", value: data.previewReady ? "可用" : "缺失", detail: "macOS · Windows · 浏览器兼容模式", state: data.previewReady ? "good" : "warn", path: data.active?.path },
+    { title: "预览入口", value: data.previewReady ? "可用" : "缺失", detail: "macOS · Windows · Linux · 浏览器兼容模式", state: data.previewReady ? "good" : "warn", path: data.active?.path },
     { title: "清理候选", value: `${data.cleanupTotal} 项`, detail: data.cleanupItems.slice(0, 3).map((item) => `${item.label} ${item.count}`).join(" · "), state: data.cleanupTotal ? "neutral" : "good", path: data.cleanup?.path },
   ];
   elements.healthGrid.innerHTML = cards.map((card) => `<button class="health-card is-${card.state}" ${card.path ? `data-open="${escapeHtml(card.path)}"` : "disabled"}><span class="health-dot"></span><div><span>${escapeHtml(card.title)}</span><strong>${escapeHtml(card.value)}</strong><p>${escapeHtml(card.detail)}</p></div><span class="health-arrow">→</span></button>`).join("");

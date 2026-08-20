@@ -14,6 +14,7 @@ import sync_index_status
 
 IGNORED_DIRS = {
     ".git", ".cache", ".codex", ".agents", ".openai", ".workbuddy",
+    ".idea", ".vscode", ".pytest_cache", ".ruff_cache", ".mypy_cache",
     "node_modules", ".venv", "venv", "__pycache__", "99-Logs",
 }
 
@@ -149,4 +150,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-

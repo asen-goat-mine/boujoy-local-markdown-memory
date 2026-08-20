@@ -19,10 +19,18 @@ desktop.ini
 __pycache__/
 *.py[cod]
 .cache/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
 .codex/
 .agents/
 .openai/
 .workbuddy/
+.idea/
+.vscode/
 node_modules/
 .venv/
 venv/
@@ -30,3 +38,5 @@ dist/
 build/
 *.app/
 99-Logs/
+*.swp
+*.swo
