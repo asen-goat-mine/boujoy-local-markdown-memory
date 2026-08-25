@@ -6,6 +6,9 @@ All notable changes to Boujoy Local Markdown Memory are recorded here. The proje
 
 ### Added
 
+- First-run `Start-Here` launchers for macOS, Windows, and Linux.
+- A dependency-free initializer that archives synthetic examples, creates the first real project, updates lightweight indexes, and verifies the result.
+- Double-click Vault check and index-repair entry points for macOS and Windows.
 - Linux preview launcher and Linux CI coverage.
 - Repository version file, documentation hub, release guide, support guide, and community templates.
 - Repository-contract tests for versioning, launchers, documentation links, and public media policy.

@@ -22,6 +22,16 @@ class RepositoryContractTests(unittest.TestCase):
             with self.subTest(relative=relative):
                 self.assertTrue((ROOT / relative).is_file())
 
+    def test_first_run_and_maintenance_launchers_exist(self) -> None:
+        for relative in (
+            "Start-Here.command", "Start-Here.cmd", "start-here.sh",
+            "Check-Vault.command", "Check-Vault.cmd",
+            "Repair-Vault.command", "Repair-Vault.cmd",
+            "tools/initialize_vault.py",
+        ):
+            with self.subTest(relative=relative):
+                self.assertTrue((ROOT / relative).is_file())
+
     def test_health_center_lists_all_supported_platforms(self) -> None:
         script = (ROOT / "Knowledge-UI/app.js").read_text(encoding="utf-8")
         self.assertIn("macOS · Windows · Linux · 浏览器兼容模式", script)

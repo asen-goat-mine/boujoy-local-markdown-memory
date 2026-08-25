@@ -13,7 +13,9 @@ No pip packages, npm packages, database, account, or external API are required.
 
 For a new personal Vault, use GitHub's **Use this template** action when enabled, or download a release/source archive. Keep the resulting repository private if it will contain personal or company knowledge.
 
-Open the new Vault root as the workspace. `AGENTS.md`, `DASHBOARD.md`, and the lightweight indexes provide the startup context.
+Run `Start-Here.command` on macOS, `Start-Here.cmd` on Windows, or `./start-here.sh` on Linux. Enter a Vault name and first project name. The initializer preserves synthetic examples in `90-Archive/Starter-Examples/`, creates the real project card, updates the lightweight indexes, and verifies the result.
+
+Open the initialized Vault root as the workspace. `AGENTS.md`, `DASHBOARD.md`, and the lightweight indexes provide the startup context.
 
 ## Start the preview
 
@@ -37,6 +39,8 @@ If Python is unavailable, open `Knowledge-UI/index.html` and select the Vault fo
 
 ## Replace the starter content
 
+The Start Here initializer performs these steps automatically. For a manual setup:
+
 1. Replace or delete the synthetic example cards.
 2. Update `DASHBOARD.md` and `00-System/Active-Context.md` with real state.
 3. Add topics to `00-System/Memory-Index.md` only after creating durable cards.
@@ -46,6 +50,8 @@ If Python is unavailable, open `Knowledge-UI/index.html` and select the Vault fo
 python3 tools/sync_index_status.py --fix
 python3 tools/sync_index_status.py --check
 ~~~
+
+You can also double-click `Check-Vault.command` / `Repair-Vault.command` on macOS or the matching `.cmd` files on Windows.
 
 ## Keep private work private
 

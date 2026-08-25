@@ -22,6 +22,10 @@ Full mode refreshes after Markdown changes. If a refresh was missed, reload the 
 
 ## A card is missing from an index
 
+Use `Repair-Vault.command` on macOS or `Repair-Vault.cmd` on Windows. The repair only synchronizes index metadata and the generated health report.
+
+The equivalent commands are:
+
 Run:
 
 ~~~bash
@@ -31,6 +35,10 @@ python3 tools/vault_doctor.py
 ~~~
 
 The preview never repairs indexes because it is intentionally read-only.
+
+## Start Here says the Vault is already initialized
+
+This is a safety guard. The initializer only runs against the untouched public starter and will not overwrite an existing personal Vault. Continue using the existing Vault; use the repair entry only if an index check fails.
 
 ## A local file cannot be opened or revealed
 

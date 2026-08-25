@@ -25,6 +25,16 @@ A local-first knowledge vault for Codex and WorkBuddy. Projects, decisions, meth
 
 <p align="center"><sub>The animation plays in this README. Click it to open the complete 23-second MP4.</sub></p>
 
+## Which project should you use?
+
+| What you need | Choose |
+| --- | --- |
+| A lightweight, transparent Markdown memory template that you maintain yourself | **This project: Local Markdown Memory** |
+| Automatic conversation observation, personal understanding, and visual memory management | [Bok](https://github.com/asen-goat-mine/bok) |
+| A desktop client with a full conversation UI and Agent execution environment | [Boujoy Harness](https://github.com/asen-goat-mine/boujoy-harness) |
+
+All three can point at the same Markdown vault, but they solve different problems. You do not need to install all of them.
+
 ## Why this exists
 
 Chat histories grow, projects become complicated, models change, and tools come and go. A well-written local Markdown project card, knowledge card, or prompt is still readable by you, Codex, WorkBuddy, and any text editor years later.
@@ -71,13 +81,25 @@ Downloading and extracting the ZIP also works.
 
 For long-term personal use, enable GitHub's Template Repository setting and create an independent repository with **Use this template** instead of committing private knowledge to a public fork. Personal and company Vaults should be private.
 
-### 2. Open the vault as a workspace
+### 2. Turn it into your own Vault
+
+Run the first-time entry point for your platform:
+
+- macOS: double-click `Start-Here.command`
+- Windows: double-click `Start-Here.cmd`
+- Linux: run `./start-here.sh`
+
+Enter a Vault name and the first project name. The initializer moves synthetic examples into `90-Archive/Starter-Examples/`, creates a real project card, updates Dashboard, active context, and indexes, verifies the result, then opens the preview. It does not delete the examples or contact an external service.
+
+To keep the untouched starter template, skip initialization and use the preview launcher below.
+
+### 3. Open the vault as a workspace
 
 - **Codex:** open the repository root. AGENTS.md defines startup reading, retrieval, saving, deduplication, and security boundaries.
 - **WorkBuddy:** set the repository root as the workspace. Both tools read the same vault; no second memory store is needed.
 - **Any editor:** VS Code, Obsidian, Typora, Finder, and Explorer can all read the same ordinary Markdown files.
 
-### 3. Open the read-only preview
+### 4. Open the read-only preview
 
 Full mode requires only Python 3.9+ from the standard library. No pip, npm, database, or external API is needed:
 
@@ -192,6 +214,13 @@ Boujoy Local Markdown Memory is not a cloud-sync service, database, vector-searc
 It is first an open Markdown convention. A future optional read-only MCP adapter can give more agents a standard tool interface, but MCP will not replace Markdown or become the only source of truth.
 
 ## Maintenance and verification
+
+For maintenance without terminal commands, double-click:
+
+- macOS: `Check-Vault.command` or `Repair-Vault.command`
+- Windows: `Check-Vault.cmd` or `Repair-Vault.cmd`
+
+The check entry is read-only. Repair only synchronizes indexes and the health report; it does not rewrite knowledge-card content.
 
 ~~~bash
 python3 tools/vault_doctor.py

@@ -25,6 +25,16 @@
 
 <p align="center"><sub>README 内自动播放知识库 UI 演示；点击即可打开完整 23 秒视频。</sub></p>
 
+## 应该下载哪个项目？
+
+| 你的需求 | 选择 |
+| --- | --- |
+| 想要一套轻量、透明、自己维护的 Markdown 记忆模板 | **当前项目：Local Markdown Memory** |
+| 想要自动观察对话、沉淀个人理解并可视化管理 | [Bok](https://github.com/asen-goat-mine/bok) |
+| 想要带完整对话界面和 Agent 执行环境的桌面客户端 | [Boujoy Harness](https://github.com/asen-goat-mine/boujoy-harness) |
+
+这三个项目可以读取同一个 Markdown Vault，但定位不同，不需要同时安装。
+
 ## 为什么要做它
 
 聊天记录会变长、工作会变复杂、模型会换、工具会换。但一份写得好的本地 Markdown 项目卡、知识卡或提示词，十年后仍然能被你、Codex、WorkBuddy 和任何文本编辑器读懂。
@@ -71,13 +81,25 @@ cd boujoy-local-markdown-memory
 
 如果要长期保存自己的知识，推荐在 GitHub 开启 Template Repository 后使用 **Use this template** 创建独立仓库，而不是直接 Fork 后把私人内容提交到公开历史。个人或公司 Vault 应设为私有。
 
-### 2. 把它作为工作根目录打开
+### 2. 一键变成自己的 Vault
+
+首次使用运行对应入口：
+
+- macOS：双击 `Start-Here.command`
+- Windows：双击 `Start-Here.cmd`
+- Linux：运行 `./start-here.sh`
+
+只需要输入知识库名称和第一个项目名称。初始化器会把合成示例移入 `90-Archive/Starter-Examples/`，创建真实项目卡，更新 Dashboard、当前上下文和索引，并在验证通过后打开预览。不会删除示例，也不会连接外部服务。
+
+如果想保留原始模板不做初始化，直接使用下面的预览入口即可。
+
+### 3. 把它作为工作根目录打开
 
 - **Codex**：打开仓库根目录。根目录的 AGENTS.md 会定义启动读取、检索、保存、去重和安全边界。
 - **WorkBuddy**：将仓库根目录设为工作区；两者读取同一个 Vault，不维护两份记忆。
 - **普通编辑器**：直接用 VS Code、Obsidian、Typora 或 Finder/Explorer 浏览也可以，数据仍是正常 Markdown。
 
-### 3. 打开只读预览
+### 4. 打开只读预览
 
 完整模式只需 Python 3.9+ 标准库，不需要安装 pip、npm、数据库或外部 API：
 
@@ -192,6 +214,13 @@ Boujoy Local Markdown Memory 不是云同步服务、数据库、向量搜索引
 它首先是一套开放的 Markdown 约定。未来可以做可选的只读 MCP 适配层，让更多 Agent 用标准工具读取它；但 MCP 不会取代 Markdown，也不会成为唯一数据源。
 
 ## 维护与验证
+
+不想使用命令行时，可以直接双击：
+
+- macOS：`Check-Vault.command` 或 `Repair-Vault.command`
+- Windows：`Check-Vault.cmd` 或 `Repair-Vault.cmd`
+
+检查入口只读；修复入口只同步索引和健康报告，不会改写知识卡正文。
 
 ~~~bash
 python3 tools/vault_doctor.py
