@@ -72,6 +72,9 @@ class VaultCache:
         self.source_fingerprint = ""
         self.etag = ""
         self.payload = b""
+        self.last_checked = 0.0
+        self.last_verified = 0.0
+        self.entries: dict[str, tuple[tuple[int, int, int, int], dict]] = {}
 
     @staticmethod
     def markdown_paths() -> tuple[list[Path], list[dict[str, str]]]:
@@ -99,35 +102,56 @@ class VaultCache:
                     paths.append(current_path / filename)
         return paths, skipped
 
-    def read(self) -> tuple[str, bytes]:
+    def read(self, *, max_age: float = 0.0) -> tuple[str, bytes]:
+        with self.lock:
+            if self.payload and time.monotonic() - self.last_checked < max_age:
+                return self.etag, self.payload
+            result = self._read_locked()
+            self.last_checked = time.monotonic()
+            return result
+
+    def _read_locked(self) -> tuple[str, bytes]:
         paths, skipped = self.markdown_paths()
         snapshots: list[tuple[Path, os.stat_result]] = []
         parts: list[str] = []
         for path in paths:
             try:
+                if path.is_symlink():
+                    raise PermissionError("Symbolic-link Markdown is not indexed")
+                path.resolve().relative_to(VAULT_ROOT)
                 stat = path.stat()
                 relative = path.relative_to(VAULT_ROOT).as_posix()
             except (OSError, ValueError) as error:
                 skipped.append(diagnostic(path, error))
                 continue
             snapshots.append((path, stat))
-            parts.append(f"{relative}:{stat.st_mtime_ns}:{stat.st_size}")
+            parts.append(f"{relative}:{stat.st_mtime_ns}:{stat.st_ctime_ns}:{stat.st_size}:{stat.st_ino}")
 
         for item in skipped:
             parts.append(f"skipped:{item['path']}:{item['error']}")
         source_fingerprint = hashlib.sha256(
             "|".join(parts).encode("utf-8")
         ).hexdigest()
-        with self.lock:
-            if source_fingerprint == self.source_fingerprint and self.payload:
-                return self.etag, self.payload
+        # Windows ctime is creation time. Periodically verify bytes as well,
+        # so editors preserving size/mtime cannot keep stale content forever.
+        verify_content = time.monotonic() - self.last_verified >= 30
+        if not verify_content and source_fingerprint == self.source_fingerprint and self.payload:
+            return self.etag, self.payload
 
         files = []
+        entries = {}
         unreadable: list[dict[str, str]] = []
         for path, stat in snapshots:
             try:
-                text = path.read_text(encoding="utf-8", errors="replace")
                 relative = path.relative_to(VAULT_ROOT).as_posix()
+                signature = (stat.st_mtime_ns, stat.st_ctime_ns, stat.st_size, stat.st_ino)
+                cached = self.entries.get(relative)
+                if not verify_content and cached and cached[0] == signature:
+                    files.append(cached[1])
+                    entries[relative] = cached
+                    continue
+                raw = path.read_bytes()
+                text = raw.decode("utf-8", errors="replace")
             except (OSError, ValueError) as error:
                 unreadable.append(diagnostic(path, error))
                 continue
@@ -137,8 +161,10 @@ class VaultCache:
                     "text": text,
                     "lastModified": stat.st_mtime * 1000,
                     "size": stat.st_size,
+                    "contentHash": hashlib.sha256(raw).hexdigest(),
                 }
             )
+            entries[relative] = (signature, files[-1])
 
         payload = json.dumps(
             {
@@ -151,10 +177,13 @@ class VaultCache:
             separators=(",", ":"),
         ).encode("utf-8")
         etag = hashlib.sha256(payload).hexdigest()
-        with self.lock:
-            self.source_fingerprint = source_fingerprint
-            self.etag = etag
-            self.payload = payload
+        # Retry temporarily unreadable files even if their metadata is unchanged.
+        self.source_fingerprint = "" if unreadable else source_fingerprint
+        self.etag = etag
+        self.payload = payload
+        self.entries = entries
+        if verify_content:
+            self.last_verified = time.monotonic()
         return etag, payload
 
 
@@ -348,7 +377,7 @@ class PreviewHandler(SimpleHTTPRequestHandler):
             )
             return
         try:
-            etag, payload = CACHE.read()
+            etag, payload = CACHE.read(max_age=0.5)
         except Exception as error:
             self.send_json(
                 HTTPStatus.INTERNAL_SERVER_ERROR,

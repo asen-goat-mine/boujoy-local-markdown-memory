@@ -60,7 +60,7 @@ Long-term context is therefore not locked inside one chat window, account, or mo
 | Principle | What it means |
 | --- | --- |
 | Markdown is the source of truth | A database, vector index, or chat cache cannot replace the original knowledge files you own. |
-| Index first, read on demand | Start with Dashboard and lightweight indexes, then read only one to three relevant cards after a topic match. |
+| Index first, read on demand | Start once with AGENTS, Boot, Active Context, and Hot Index. Search the full map on demand, then read one to three matching cards. |
 | Compress before saving | Turn a long discussion into conclusions, context, decisions, methods, and next actions instead of dumping transcripts into the vault. |
 | Deduplicate before writing | Update a similar existing card where appropriate. Mark superseded or changed conclusions instead of creating conflicting memories. |
 | Local-first and auditable | Rules, indexes, and cards are all directly readable. No database, cloud knowledge service, or external API is required. |
@@ -143,7 +143,7 @@ Useful prompts include:
 
 A healthy agent loop is:
 
-1. **Start:** read AGENTS.md, Dashboard, and 00-System/Boot.md first; then read Hot-Index, Memory-Index, and Active-Context as the lightweight startup index.
+1. **Start:** read AGENTS.md, 00-System/Boot.md, Active-Context, and Hot-Index once. Reuse loaded entries; search Memory-Index only when the Hot Index does not cover the topic.
 2. **Match:** read only the relevant project or knowledge cards instead of scanning the entire vault.
 3. **Work:** write the output into the right project, knowledge, content, prompt, or business directory.
 4. **Close:** record real progress and next steps. Do not fabricate tests, deliveries, or save records.

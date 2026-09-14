@@ -8,14 +8,14 @@ Markdown files inside this folder are the only long-term source of truth. The pr
 
 ## Startup read
 
-At the beginning of a new task in this folder, read at most:
+At the beginning of a new task in this folder, read these four entries once:
 
 1. `AGENTS.md`
-2. `DASHBOARD.md`
-3. `00-System/Boot.md`
+2. `00-System/Boot.md`
+3. `00-System/Active-Context.md`
 4. `00-System/Hot-Index.md`
-5. `00-System/Memory-Index.md`
-6. `00-System/Active-Context.md`
+
+Reuse entries already supplied by the client or loaded in this task. `DASHBOARD.md` is for browsing. Search `00-System/Memory-Index.md` only when the Hot Index does not cover the topic; read the complete map only for an explicitly requested full-Vault audit or map. The project card selected by `focus_path` owns current state and next actions.
 
 Do not scan the entire Vault by default. After an index match, read only the 1–3 most relevant content files. Never read outside the Vault unless the user explicitly places another path in scope.
 
@@ -62,7 +62,7 @@ Use `00-System/Knowledge-Card-Template.md`. A durable card should contain a one-
 
 When the user refers to previous work or the topic matches an index:
 
-1. read the three lightweight indexes;
+1. reuse the startup entries; search the Memory Index if the Hot Index has no match;
 2. select the closest topic;
 3. read at most three linked files;
 4. distinguish stored evidence from current inference;
@@ -86,4 +86,3 @@ The preview UI never writes indexes.
 ## Truth and safety
 
 Do not save secrets or private identity data. Do not fabricate saved files, tests, logs, or verification. Preserve user-owned changes and keep all writes inside the Vault.
-

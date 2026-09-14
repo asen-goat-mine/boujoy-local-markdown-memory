@@ -4,12 +4,13 @@
 
 新窗口打开本文件夹时：
 
-1. 读取 `AGENTS.md`
-2. 读取 `DASHBOARD.md`
-3. 读取本文件
-4. 轻量读取 `Hot-Index.md`、`Memory-Index.md`、`Active-Context.md`
+1. 使用 `AGENTS.md`；客户端已提供完整规则时不重复读取。
+2. 读取本文件。
+3. 读取 `Active-Context.md`，定位 `focus_path` 指向的当前项目。
+4. 读取 `Hot-Index.md`。
+
+以上入口在同一任务中只读取一次。`DASHBOARD.md` 供用户浏览；高频入口未覆盖主题时，再在 `Memory-Index.md` 搜索相关条目。只有用户要求完整地图或全库审计时，才全文读取全局地图。
 
 普通回答不需要每轮重复读取索引。只有命中相关主题、需要延续项目，或当前上下文缺少索引信息时，才补读最多 3 个相关内容文件。
 
 默认启用 Quiet Mode。后台检索、价值评分、去重与保存过程不主动展示。
-

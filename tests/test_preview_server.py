@@ -7,7 +7,10 @@ import threading
 import unittest
 from pathlib import Path
 from urllib.error import HTTPError
-from urllib.request import Request, urlopen
+from urllib.request import ProxyHandler, Request, build_opener
+
+# Loopback fixtures must not be routed through the host system proxy.
+urlopen = build_opener(ProxyHandler({})).open
 
 
 ROOT = Path(__file__).resolve().parents[1]

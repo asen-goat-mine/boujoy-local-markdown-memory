@@ -7,7 +7,7 @@ Boujoy Local Markdown Memory is intentionally both a starter Vault and a small r
 | Layer | Paths | Responsibility |
 |---|---|---|
 | Workspace contract | `AGENTS.md`, `.codebuddy/rules/` | Tells supported agents how to retrieve, save, and protect knowledge. |
-| Lightweight context | `DASHBOARD.md`, `00-System/*Index.md`, `00-System/Active-Context.md` | Provides fast startup and targeted retrieval. |
+| Lightweight context | `00-System/Boot.md`, `00-System/Active-Context.md`, `00-System/Hot-Index.md` | Provides minimal startup context; `Memory-Index.md` is searched on demand and `DASHBOARD.md` supports human browsing. |
 | User content | `01-Inbox` through `90-Archive` | Stores projects, reusable knowledge, content, prompts, business decisions, and archives. |
 | Read-only preview | `Knowledge-UI/` | Reads Markdown and local media without writing Vault files. |
 | Maintenance | `tools/`, `tests/`, `.github/` | Checks index consistency, public-release safety, and cross-platform behavior. |
