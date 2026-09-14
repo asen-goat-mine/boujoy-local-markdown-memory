@@ -4,6 +4,8 @@ All notable changes to Boujoy Local Markdown Memory are recorded here. The proje
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-14
+
 ### Added
 
 - First-run `Start-Here` launchers for macOS, Windows, and Linux.
