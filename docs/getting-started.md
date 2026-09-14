@@ -15,7 +15,7 @@ For a new personal Vault, use GitHub's **Use this template** action when enabled
 
 Run `Start-Here.command` on macOS, `Start-Here.cmd` on Windows, or `./start-here.sh` on Linux. Enter a Vault name and first project name. The initializer preserves synthetic examples in `90-Archive/Starter-Examples/`, creates the real project card, updates the lightweight indexes, and verifies the result.
 
-Open the initialized Vault root as the workspace. `AGENTS.md`, `DASHBOARD.md`, and the lightweight indexes provide the startup context.
+Open the initialized Vault root as the workspace. `AGENTS.md`, `00-System/Boot.md`, `00-System/Active-Context.md`, and `00-System/Hot-Index.md` provide the startup context. Reuse them within the same task; search the Memory Index only when needed. Dashboard remains the human browsing entry.
 
 ## Start the preview
 

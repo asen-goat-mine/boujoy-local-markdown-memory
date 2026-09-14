@@ -2,7 +2,7 @@
 
 The workspace root is a local Markdown knowledge Vault. `AGENTS.md` is the authoritative project rule file for both WorkBuddy and Codex.
 
-- Read `DASHBOARD.md`, `00-System/Boot.md`, and the three lightweight indexes before following older context.
+- Reuse `AGENTS.md`, `00-System/Boot.md`, `00-System/Active-Context.md`, and `00-System/Hot-Index.md` once per task. Search `00-System/Memory-Index.md` only when needed; `DASHBOARD.md` is for browsing.
 - Do not scan the full Vault by default; after a match, read only 1–3 relevant files.
 - Markdown is the only long-term source of truth. Automatic memory and chat history are not Vault facts.
 - Apply value filtering, deduplication, and security rules before saving.

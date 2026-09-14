@@ -310,6 +310,7 @@ function createRecord(path, text, file) {
     updated: extractUpdated(text, frontmatter, file),
     lastModified: file.lastModified,
     size: file.size,
+    contentHash: String(file.contentHash || ""),
     actions: extractActionItems(text),
   };
 }
@@ -363,7 +364,7 @@ function recordsFromFallback(fileList) {
 }
 
 function makeFingerprint(records) {
-  return records.map((record) => `${record.path}:${record.lastModified}:${record.size}`).sort().join("|");
+  return records.map((record) => `${record.path}:${record.lastModified}:${record.size}:${record.contentHash}`).sort().join("|");
 }
 
 async function readServerVault({ force = false, announce = false } = {}) {
@@ -381,7 +382,7 @@ async function readServerVault({ force = false, announce = false } = {}) {
   if (!response.ok) throw new Error(`Vault server returned ${response.status}`);
   const payload = await response.json();
   state.serverEtag = response.headers.get("ETag") || "";
-  const records = payload.files.map((file) => createRecord(file.path, file.text, { lastModified: file.lastModified, size: file.size }));
+  const records = payload.files.map((file) => createRecord(file.path, file.text, file));
   const fingerprint = makeFingerprint(records);
   if (!force && fingerprint === state.fingerprint) return;
   state.serverMode = true;
